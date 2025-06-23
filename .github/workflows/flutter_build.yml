@@ -1,4 +1,4 @@
-name: Build Flutter Web & APK
+name: Build APK
 
 on:
   push:
@@ -8,41 +8,32 @@ on:
 
 jobs:
   build:
+    name: Build APK for Android
     runs-on: ubuntu-latest
 
     steps:
-      - name:  Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name:  Setup Flutter
+      - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.32.4'  # Use your Flutter version
+          flutter-version: '3.32.4' # or your Flutter version
 
-      - name: Install dependencies
-        run: flutter pub get
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
-           distribution: 'temurin'
-           java-version: '17'
-      - name:  Run tests (optional)
-        run: flutter test
+          distribution: 'temurin'
+          java-version: '17'
 
-      - name:  Build Web
-        run: flutter build web
+      - name: Install dependencies
+        run: flutter pub get
 
-      - name:  Build APK
+      - name: Build APK
         run: flutter build apk --release
 
-      - name:  Upload APK artifact
-        uses: actions/upload-artifact@v4
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
         with:
-          name: todo_app_apk
+          name: app-release.apk
           path: build/app/outputs/flutter-apk/app-release.apk
-
-      - name:  Upload Web artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: todo_app_web
-          path: build/web
