@@ -1,10 +1,14 @@
 buildscript {
+    ext.kotlin_version = '1.9.23' //  Modern Kotlin version for compatibility with Java 17+
+
     repositories {
         google()
         mavenCentral()
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.3.0'
+        classpath "com.android.tools.build:gradle:8.3.0"  //  AGP 8.3.0
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version" //  Kotlin plugin
     }
 }
 
